@@ -6,6 +6,7 @@ interface SelectInputProps {
   options: { value: string; label: string }[];
   placeholder?: string;
   className?: string;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({
@@ -14,6 +15,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   options,
   placeholder,
   className,
+  onChange,
 }) => {
   return (
     <div className={className}>
@@ -32,9 +34,10 @@ const SelectInput: React.FC<SelectInputProps> = ({
         required
         className="bg-gray-100 h-[45px] outline-none w-full rounded px-4"
         defaultValue=""
+        onChange={onChange}
       >
         {placeholder && (
-          <option value="" disabled>
+          <option value="" disabled key="">
             {placeholder}
           </option>
         )}

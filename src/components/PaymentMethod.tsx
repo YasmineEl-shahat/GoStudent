@@ -51,20 +51,20 @@ const PaymentMethod: React.FC = () => {
 
         {/* Conditionally render input fields based on selected method */}
         {selectedMethod === "visa" && (
-          <div className="visa-specific-fields">
+          <>
             <FormInput className="mb-4" placeholder="Card holder" />
             <FormInput className="mb-4" placeholder="Card number" />
             <div className="flex gap-4">
-              <FormInput placeholder="MM / YY" />
-              <FormInput placeholder="CVC" />
+              <FormInput placeholder="MM / YY" className="flex-1" />
+              <FormInput placeholder="CVC" className="flex-1" />
             </div>
-          </div>
+          </>
         )}
         {selectedMethod === "sepa" && (
-          <div className="sepa-specific-fields">
+          <>
             <FormInput className="mb-4" placeholder="IBAN" />
             <FormInput placeholder="BIC" />
-          </div>
+          </>
         )}
       </div>
 
