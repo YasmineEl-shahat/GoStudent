@@ -79,6 +79,9 @@ body {
 html[dir="rtl"] {
   direction: rtl;
 }
+html[dir="rtl"] .ring-0[data-state="checked"] {
+  transform: translateX(-16px);
+}
 
 html[dir="ltr"] {
   direction: ltr;
