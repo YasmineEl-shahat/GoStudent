@@ -6,6 +6,7 @@ import { Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/i18n";
+import Cookie from "js-cookie";
 
 import "./globals.css";
 
@@ -51,12 +52,17 @@ export default function RootLayout({
 
   const toggleLocale = () => {
     const newLocale = currentLanguage === "en" ? "ar" : "en";
+    Cookie.set("language", newLocale, { expires: 365 }); // Save to cookie for 365 days
+
     i18n.changeLanguage(newLocale).then(() => {
       setCurrentLanguage(newLocale); // Update state after changing language
     });
   };
 
   useEffect(() => {
+    const savedLanguage = Cookie.get("language") || "en"; // Default to 'en' if no cookie is found
+    setCurrentLanguage(savedLanguage);
+    i18n.changeLanguage(savedLanguage); // Change language in i18n instance
     document.documentElement.dir = currentLanguage === "ar" ? "rtl" : "ltr";
     document.documentElement.lang = currentLanguage;
   }, [currentLanguage]); // Use state as the dependency
