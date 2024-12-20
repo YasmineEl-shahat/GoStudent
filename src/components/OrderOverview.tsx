@@ -14,19 +14,37 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
 }) => {
   const [selectedPlan, setSelectedPlan] = useState(6);
   const [payInAdvance, setPayInAdvance] = useState(false);
+  const [totalSessions, setTotalSessions] = useState(sessions);
+  const [totalPrice, setTotalPrice] = useState(price);
+
   const discount = 9.6;
   const setupFee = 0.0;
-  const extraDiscount = payInAdvance ? price * 0.05 : 0;
-  const total = sessions * price - discount - extraDiscount;
+  const extraDiscount = payInAdvance ? totalPrice * 0.05 : 0;
+  const total = totalSessions * totalPrice - discount - extraDiscount;
 
   const handlePlanSelect = (months: number) => {
     setSelectedPlan(months);
+    // Update sessions and price based on the selected plan
+
     if (months === 6) {
-      // Update sessions and price for 6 months
+      setTotalSessions(6);
+      setTotalPrice(price);
+    } else if (months === 9) {
+      setTotalSessions(9);
+      setTotalPrice(price * 0.95);
     } else if (months === 12) {
-      // Update sessions and price for 12 months
+      setTotalSessions(12);
+      setTotalPrice(price * 0.9);
+    } else if (months === 18) {
+      setTotalSessions(18);
+      setTotalPrice(price * 0.85);
+    } else if (months === 24) {
+      setTotalSessions(24);
+      setTotalPrice(price * 0.8);
+    } else if (months === 36) {
+      setTotalSessions(36);
+      setTotalPrice(price * 0.75);
     }
-    // Add more conditions for other plans
   };
 
   return (
@@ -63,7 +81,7 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
         <section className="space-y-5 mt-10 text-xs">
           <article className="flex justify-between text-gray-500">
             <p>NUMBER OF SESSIONS P.M.</p>
-            <p className="font-bold text-black">{sessions}</p>
+            <p className="font-bold text-black">{totalSessions}</p>
           </article>
           <article className="flex justify-between text-gray-500">
             <p>REGULAR PRICE</p>
@@ -75,7 +93,7 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
           <article className="flex justify-between text-gray-500">
             <p>YOUR PRICE</p>
             <p className="font-bold text-black">
-              {price.toFixed(2)}
+              {totalPrice.toFixed(2)}
               {currency}
             </p>
           </article>

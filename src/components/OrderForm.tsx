@@ -33,13 +33,14 @@ const OrderForm: React.FC = () => {
   }, [selectedCountry]);
 
   const sessionsOptions = [
-    { value: "4", label: "4 Sessions" },
-    { value: "8", label: "8 Sessions" },
+    { value: "6", label: "6 Sessions" },
+    { value: "9", label: "9 Sessions" },
     { value: "12", label: "12 Sessions" },
   ];
 
   const { control, handleSubmit, setValue } = useForm();
   const phoneRegex = /^[0-9]{10,15}$/; // Validates phone numbers with 10-15 digits.
+
   const onSubmit = (data: unknown) => {
     console.log(data);
   };
@@ -166,12 +167,50 @@ const OrderForm: React.FC = () => {
                 BILLING ADDRESS
               </label>
               <section className="flex gap-4">
-                <FormInput placeholder="Address" className="flex-auto" />
-                <FormInput placeholder="Nr" className="flex-1" />
+                <Controller
+                  name="address"
+                  control={control}
+                  defaultValue=""
+                  render={({ field, fieldState }) => (
+                    <FormInput
+                      {...field}
+                      placeholder="Address"
+                      className="flex-auto"
+                      error={fieldState.error?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="nr"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <FormInput {...field} placeholder="Nr" className="flex-1" />
+                  )}
+                />
               </section>
             </div>
             <div className="flex gap-4">
-              <FormInput placeholder="Postal code" className="flex-1" />
+              <Controller
+                name="postalCode"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Postal code is required",
+                  pattern: {
+                    value: /^[0-9]{5}$/, // Adjust the regex to match your postal code format
+                    message: "Postal code must be 5 digits",
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <FormInput
+                    {...field}
+                    placeholder="Postal code"
+                    className="flex-1"
+                    error={fieldState.error?.message}
+                  />
+                )}
+              />
               <Controller
                 name="country"
                 control={control}
@@ -209,10 +248,22 @@ const OrderForm: React.FC = () => {
               />
             </div>
 
-            <SelectInput
-              options={sessionsOptions}
-              label="Monthly Sessions"
-              className="flex-1"
+            <Controller
+              name="sessions"
+              control={control}
+              defaultValue={6}
+              rules={{ required: "Sessions is required" }}
+              render={({ field, fieldState }) => (
+                <SelectInput
+                  options={sessionsOptions}
+                  label="Monthly Sessions"
+                  placeholder="Monthly Sessions"
+                  className="flex-1"
+                  {...field}
+                  error={fieldState.error?.message}
+                  required
+                />
+              )}
             />
 
             <PaymentMethod control={control} />
@@ -221,7 +272,7 @@ const OrderForm: React.FC = () => {
 
         {/* Right side - Order Overview */}
         <aside className="w-full md:w-80 lg:w-[400px]">
-          <OrderOverview sessions={8} price={28.4} currency="€" />
+          <OrderOverview sessions={6} price={28.4} currency="€" />
         </aside>
       </section>
     </form>
