@@ -1,0 +1,19 @@
+{
+  "registrationTitle": "Registration & Booking at GoStudent",
+  "registrationSubtitle": "The leading platform for online tutoring.",
+  "loginPhoneNumber": "LOGIN PHONE NUMBER",
+  "contactPhoneNumber": "CONTACT PHONE NUMBER",
+  "contactEmail": "CONTACT EMAIL ADDRESS",
+  "contactName": "CONTACT NAME",
+  "billingAddress": "BILLING ADDRESS",
+  "addressPlaceholder": "Address",
+  "nrPlaceholder": "Nr",
+  "postalCodePlaceholder": "Postal code",
+  "countryPlaceholder": "Country",
+  "cityPlaceholder": "City",
+  "monthlySessions": "Monthly Sessions",
+  "requiredField": "{{field}} is required",
+  "invalidPhone": "Phone number must be 10-15 digits",
+  "invalidEmail": "Invalid email format",
+  "invalidPostalCode": "Postal code should be 5 digits"
+}

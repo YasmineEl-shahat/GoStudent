@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import PhoneInput from "@/components/inputs/PhoneInput";
 import FormInput from "@/components/inputs/FormInput";
 import PaymentMethod from "@/components/PaymentMethod";
@@ -11,12 +12,12 @@ import SelectInput from "@/components/inputs/SelectInput";
 const { getCountries, getCities } = require("countries-cities");
 
 const OrderForm: React.FC = () => {
-  const countries: { value: string; label: string }[] = getCountries().map(
-    (country: string) => ({
-      value: country,
-      label: country,
-    })
-  );
+  const { t } = useTranslation();
+
+  const countries = getCountries().map((country: string) => ({
+    value: country,
+    label: country,
+  }));
 
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [cities, setCities] = useState<{ value: string; label: string }[]>([]);
@@ -33,16 +34,38 @@ const OrderForm: React.FC = () => {
   }, [selectedCountry]);
 
   const sessionsOptions = [
-    { value: "6", label: "6 Sessions" },
-    { value: "9", label: "9 Sessions" },
-    { value: "12", label: "12 Sessions" },
+    { value: "6", label: t("monthlySessions") },
+    { value: "9", label: t("monthlySessions") },
+    { value: "12", label: t("monthlySessions") },
   ];
 
   const { control, handleSubmit, setValue, watch } = useForm();
-  // Watch the selected sessions value
   const selectedSessions = watch("sessions", 6);
 
-  const phoneRegex = /^[0-9]{10,15}$/; // Validates phone numbers with 10-15 digits.
+  const phoneRegex = /^[0-9]{10,15}$/;
+  const validationRules = {
+    phone: {
+      required: t("requiredField", { field: t("contactPhoneNumber") }),
+      pattern: {
+        value: phoneRegex,
+        message: t("invalidPhone"),
+      },
+    },
+    email: {
+      required: t("requiredField", { field: t("contactEmail") }),
+      pattern: {
+        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        message: t("invalidEmail"),
+      },
+    },
+    postalCode: {
+      required: t("requiredField", { field: t("postalCodePlaceholder") }),
+      pattern: {
+        value: /^[0-9]{5}$/,
+        message: t("invalidPostalCode"),
+      },
+    },
+  };
 
   const onSubmit = (data: unknown) => {
     console.log(data);
@@ -54,12 +77,11 @@ const OrderForm: React.FC = () => {
       className="flex justify-center p-4 md:p-8 bg-gray-50"
     >
       <section className="flex flex-col md:flex-row w-full max-w-5xl gap-2 shadow-xl bg-white rounded-lg">
-        {/* Left side - Form */}
         <article className="flex-1 py-6 px-3 md:px-6 lg:px-10">
           <header className="text-xl mb-6 text-center">
-            <h1 className="font-bold">Registration & Booking at GoStudent</h1>
+            <h1 className="font-bold">{t("registrationTitle")}</h1>
             <div className="text-sm text-gray-500 mt-1">
-              The leading platform for online tutoring.
+              {t("registrationSubtitle")}
             </div>
           </header>
           <section className="flex flex-col gap-4">
@@ -67,17 +89,10 @@ const OrderForm: React.FC = () => {
               name="loginPhoneNumber"
               control={control}
               defaultValue=""
-              rules={{
-                required: "Login phone number is required",
-                pattern: {
-                  value: phoneRegex,
-                  message: "Phone number must be 10-15 digits",
-                },
-              }}
+              rules={validationRules.phone}
               render={({ field, fieldState }) => (
                 <PhoneInput
-                  label="LOGIN PHONE NUMBER"
-                  hint="the student's"
+                  label={t("loginPhoneNumber")}
                   error={fieldState.error?.message}
                   required
                   value={field.value}
@@ -96,17 +111,10 @@ const OrderForm: React.FC = () => {
               name="contactPhoneNumber"
               control={control}
               defaultValue=""
-              rules={{
-                required: "Contact phone number is required",
-                pattern: {
-                  value: phoneRegex,
-                  message: "Phone number must be 10-15 digits",
-                },
-              }}
+              rules={validationRules.phone}
               render={({ field, fieldState }) => (
                 <PhoneInput
-                  label="CONTACT PHONE NUMBER"
-                  hint="the parent's"
+                  label={t("contactPhoneNumber")}
                   error={fieldState.error?.message}
                   required
                   value={field.value}
@@ -125,17 +133,10 @@ const OrderForm: React.FC = () => {
               name="contactEmail"
               control={control}
               defaultValue=""
-              rules={{
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email format",
-                },
-              }}
+              rules={validationRules.email}
               render={({ field, fieldState }) => (
                 <FormInput
-                  label="CONTACT EMAIL ADDRESS"
-                  hint="the parent's"
+                  label={t("contactEmail")}
                   error={fieldState.error?.message}
                   required
                   value={field.value}
@@ -154,10 +155,12 @@ const OrderForm: React.FC = () => {
               name="contactName"
               control={control}
               defaultValue=""
-              rules={{ required: "Name is required" }}
+              rules={{
+                required: t("requiredField", { field: t("contactName") }),
+              }}
               render={({ field, fieldState }) => (
                 <FormInput
-                  label="CONTACT NAME"
+                  label={t("contactName")}
                   error={fieldState.error?.message}
                   required
                   {...field}
@@ -167,7 +170,7 @@ const OrderForm: React.FC = () => {
 
             <div>
               <label className="text-xs text-gray-400 mb-1 block">
-                BILLING ADDRESS
+                {t("billingAddress")}
               </label>
               <section className="flex gap-4">
                 <Controller
@@ -177,7 +180,7 @@ const OrderForm: React.FC = () => {
                   render={({ field, fieldState }) => (
                     <FormInput
                       {...field}
-                      placeholder="Address"
+                      placeholder={t("addressPlaceholder")}
                       className="flex-auto"
                       error={fieldState.error?.message}
                     />
@@ -188,7 +191,11 @@ const OrderForm: React.FC = () => {
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
-                    <FormInput {...field} placeholder="Nr" className="flex-1" />
+                    <FormInput
+                      {...field}
+                      placeholder={t("nrPlaceholder")}
+                      className="flex-1"
+                    />
                   )}
                 />
               </section>
@@ -198,17 +205,11 @@ const OrderForm: React.FC = () => {
                 name="postalCode"
                 control={control}
                 defaultValue=""
-                rules={{
-                  required: "Postal code is required",
-                  pattern: {
-                    value: /^[0-9]{5}$/, // Adjust the regex to match your postal code format
-                    message: "Postal code must be 5 digits",
-                  },
-                }}
+                rules={validationRules.postalCode}
                 render={({ field, fieldState }) => (
                   <FormInput
                     {...field}
-                    placeholder="Postal code"
+                    placeholder={t("postalCodePlaceholder")}
                     className="flex-1"
                     error={fieldState.error?.message}
                   />
@@ -218,11 +219,13 @@ const OrderForm: React.FC = () => {
                 name="country"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Country is required" }}
+                rules={{
+                  required: t("requiredField", { field: t("country") }),
+                }}
                 render={({ field, fieldState }) => (
                   <SelectInput
                     options={countries}
-                    placeholder="Country"
+                    placeholder={t("countryPlaceholder")}
                     className="flex-1"
                     onChange={(event) => {
                       setSelectedCountry(event.target.value);
@@ -237,11 +240,13 @@ const OrderForm: React.FC = () => {
                 name="city"
                 control={control}
                 defaultValue=""
-                rules={{ required: "City is required" }}
+                rules={{
+                  required: t("requiredField", { field: t("city") }),
+                }}
                 render={({ field, fieldState }) => (
                   <SelectInput
                     options={cities}
-                    placeholder="City"
+                    placeholder={t("cityPlaceholder")}
                     className="flex-1"
                     {...field}
                     error={fieldState.error?.message}
@@ -255,12 +260,11 @@ const OrderForm: React.FC = () => {
               name="sessions"
               control={control}
               defaultValue={"6"}
-              rules={{ required: "Sessions is required" }}
+              rules={{ required: t("requiredField") }}
               render={({ field, fieldState }) => (
                 <SelectInput
                   options={sessionsOptions}
-                  label="Monthly Sessions"
-                  placeholder="Monthly Sessions"
+                  label={t("monthlySessions")}
                   className="flex-1"
                   {...field}
                   error={fieldState.error?.message}
@@ -273,7 +277,6 @@ const OrderForm: React.FC = () => {
           </section>
         </article>
 
-        {/* Right side - Order Overview */}
         <aside className="w-full md:w-80 lg:w-[400px]">
           <OrderOverview
             sessions={parseInt(selectedSessions)}

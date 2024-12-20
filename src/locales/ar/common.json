@@ -1,0 +1,19 @@
+{
+  "registrationTitle": "التسجيل والحجز في GoStudent",
+  "registrationSubtitle": "المنصة الرائدة للدروس الخصوصية عبر الإنترنت.",
+  "loginPhoneNumber": "رقم الهاتف لتسجيل الدخول",
+  "contactPhoneNumber": "رقم الهاتف للتواصل",
+  "contactEmail": "عنوان البريد الإلكتروني للتواصل",
+  "contactName": "اسم التواصل",
+  "billingAddress": "عنوان الفاتورة",
+  "addressPlaceholder": "العنوان",
+  "nrPlaceholder": "رقم",
+  "postalCodePlaceholder": "الرمز البريدي",
+  "countryPlaceholder": "الدولة",
+  "cityPlaceholder": "المدينة",
+  "monthlySessions": "الجلسات الشهرية",
+  "requiredField": "{{field}} مطلوب",
+  "invalidPhone": "يجب أن يكون رقم الهاتف بين 10 و15 رقماً",
+  "invalidEmail": "تنسيق البريد الإلكتروني غير صالح",
+  "invalidPostalCode": "الرمز البريدي يجب أن يحتوي على 5 أرقام"
+}
