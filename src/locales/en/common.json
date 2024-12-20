@@ -15,5 +15,17 @@
   "requiredField": "{{field}} is required",
   "invalidPhone": "Phone number must be 10-15 digits",
   "invalidEmail": "Invalid email format",
-  "invalidPostalCode": "Postal code should be 5 digits"
+  "invalidPostalCode": "Postal code should be 5 digits",
+  "orderOverview": "ORDER OVERVIEW",
+  "numberOfSessions": "NUMBER OF SESSIONS P.M.",
+  "regularPrice": "REGULAR PRICE",
+  "yourPrice": "YOUR PRICE",
+  "discount": "DISCOUNT 4 %",
+  "setupFee": "Setup fee",
+  "totalPm": "TOTAL P.M.",
+  "payInAdvance": "Pay in advance - EXTRA 5% DISCOUNT",
+  "termsConditions": "I accept the Terms & Conditions and understand my right of withdrawal as well as the circumstances that lead to a repeal of the same.",
+  "orderNow": "Order Now",
+  "satisfactionRate": "95% SATISFACTION RATE!",
+  "months": "months"
 }

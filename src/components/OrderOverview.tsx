@@ -1,7 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { useTranslation } from "react-i18next";
+import { useOrderOverview } from "@/hooks/useOrderOverview";
 
 interface OrderOverviewProps {
   sessions: number;
@@ -14,52 +16,25 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
   price,
   currency,
 }) => {
-  const [selectedPlan, setSelectedPlan] = useState(6);
-  const [payInAdvance, setPayInAdvance] = useState(false);
-  const [totalSessions, setTotalSessions] = useState(sessions);
-  const [totalPrice, setTotalPrice] = useState(price);
-
-  useEffect(() => {
-    setSelectedPlan(sessions);
-    setTotalSessions(sessions);
-    handlePlanSelect(sessions);
-    // eslint-disable-next-line
-  }, [sessions]);
-
-  const discount = 9.6;
-  const setupFee = 0.0;
-  const extraDiscount = payInAdvance ? totalPrice * 0.05 : 0;
-  const total = totalSessions * totalPrice - discount - extraDiscount;
-
-  const handlePlanSelect = (months: number) => {
-    setSelectedPlan(months);
-    // Update sessions and price based on the selected plan
-
-    if (months === 6) {
-      setTotalSessions(6);
-      setTotalPrice(price);
-    } else if (months === 9) {
-      setTotalSessions(9);
-      setTotalPrice(price * 0.95);
-    } else if (months === 12) {
-      setTotalSessions(12);
-      setTotalPrice(price * 0.9);
-    } else if (months === 18) {
-      setTotalSessions(18);
-      setTotalPrice(price * 0.85);
-    } else if (months === 24) {
-      setTotalSessions(24);
-      setTotalPrice(price * 0.8);
-    } else if (months === 36) {
-      setTotalSessions(36);
-      setTotalPrice(price * 0.75);
-    }
-  };
+  const { t } = useTranslation();
+  const {
+    selectedPlan,
+    payInAdvance,
+    setPayInAdvance,
+    totalSessions,
+    totalPrice,
+    discount,
+    setupFee,
+    total,
+    handlePlanSelect,
+  } = useOrderOverview({ sessions, price });
 
   return (
     <main className="bg-gray-50 p-6 h-full rounded-r-lg flex flex-col justify-between">
       <section>
-        <h2 className="text-lg font-bold text-black mb-4">ORDER OVERVIEW</h2>
+        <h2 className="text-lg font-bold text-black mb-4">
+          {t("orderOverview")}
+        </h2>
 
         <ul className="grid grid-cols-3">
           {[6, 9, 12, 18, 24, 36].map((months) => (
@@ -70,43 +45,46 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
                 selectedPlan === months ? "border-blue-500" : "border-gray-300"
               }`}
             >
-              {months} MONTHS
+              {months} {t("months")}
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center space-x-2 my-5">
+        <div className="flex items-center space-x-2 my-5 gap-2">
           <Switch
             checked={payInAdvance}
             onCheckedChange={setPayInAdvance}
             id="pay-in-advance"
           />
-          <Label htmlFor="pay-in-advance" className="text-sm text-gray-500">
-            Pay in advance - EXTRA 5% DISCOUNT
+          <Label
+            htmlFor="pay-in-advance"
+            className="text-sm text-gray-500 ml-0"
+          >
+            {t("payInAdvance")}
           </Label>
         </div>
 
         <section className="space-y-5 mt-10 text-xs">
           <article className="flex justify-between text-gray-500">
-            <p>NUMBER OF SESSIONS P.M.</p>
+            <p>{t("numberOfSessions")}</p>
             <p className="font-bold text-black">{totalSessions}</p>
           </article>
           <article className="flex justify-between text-gray-500">
-            <p>REGULAR PRICE</p>
+            <p>{t("regularPrice")}</p>
             <p className="line-through font-bold text-black">
               {price.toFixed(2)}
               {currency}
             </p>
           </article>
           <article className="flex justify-between text-gray-500">
-            <p>YOUR PRICE</p>
+            <p>{t("yourPrice")}</p>
             <p className="font-bold text-black">
               {totalPrice.toFixed(2)}
               {currency}
             </p>
           </article>
           <article className="flex justify-between text-green-500">
-            <p>DISCOUNT 4 %</p>
+            <p>{t("discount")}</p>
             <p>
               -{discount.toFixed(2)}
               {currency}
@@ -114,14 +92,14 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
           </article>
           <hr className="border-white" />
           <article className="flex justify-between text-blue-500">
-            <p>Setup fee</p>
+            <p>{t("setupFee")}</p>
             <p>
               {setupFee.toFixed(2)}
               {currency}
             </p>
           </article>
           <article className="flex justify-between text-gray-500">
-            <p>TOTAL P.M.</p>
+            <p>{t("totalPm")}</p>
             <p>
               {total.toFixed(2)}
               {currency}
@@ -131,22 +109,16 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
 
         <label className="flex items-start gap-2 my-5">
           <input type="checkbox" className="mt-1" />
-          <span className="text-sm text-gray-500">
-            I accept the{" "}
-            <span className="text-blue-500">Terms & Conditions</span> and
-            understand my{" "}
-            <span className="text-blue-500">right of withdrawal</span> as well
-            as the circumstances that lead to a repeal of the same.
-          </span>
+          <span className="text-sm text-gray-500">{t("termsConditions")}</span>
         </label>
 
         <button className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 transition">
-          Order Now
+          {t("orderNow")}
         </button>
       </section>
 
       <footer className="text-center mt-6 text-sm font-bold text-gray-500">
-        95% SATISFACTION RATE!
+        {t("satisfactionRate")}
       </footer>
     </main>
   );

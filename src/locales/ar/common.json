@@ -15,5 +15,17 @@
   "requiredField": "{{field}} مطلوب",
   "invalidPhone": "يجب أن يكون رقم الهاتف بين 10 و15 رقماً",
   "invalidEmail": "تنسيق البريد الإلكتروني غير صالح",
-  "invalidPostalCode": "الرمز البريدي يجب أن يحتوي على 5 أرقام"
+  "invalidPostalCode": "الرمز البريدي يجب أن يحتوي على 5 أرقام",
+  "orderOverview": "نظرة عامة على الطلب",
+  "numberOfSessions": "عدد الجلسات شهرياً",
+  "regularPrice": "السعر العادي",
+  "yourPrice": "سعرك",
+  "discount": "خصم 4 %",
+  "setupFee": "رسوم الإعداد",
+  "totalPm": "الإجمالي شهرياً",
+  "payInAdvance": "دفع مسبق - خصم 5% إضافي",
+  "termsConditions": "أوافق على الشروط والأحكام وأفهم حقي في الانسحاب وكذلك الظروف التي تؤدي إلى إلغائه.",
+  "orderNow": "اطلب الآن",
+  "satisfactionRate": "معدل الرضا 95%!",
+  "months": "شهور"
 }
