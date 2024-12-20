@@ -21,6 +21,7 @@ const OrderForm: React.FC = () => {
     validationRules,
     countries,
     cities,
+    selectedCountry,
     setSelectedCountry,
     sessionsOptions,
   } = useOrderForm();
@@ -187,6 +188,7 @@ const OrderForm: React.FC = () => {
                       setSelectedCountry(event.target.value);
                       field.onChange(event);
                     }}
+                    value={selectedCountry}
                     error={fieldState.error?.message}
                     required
                   />

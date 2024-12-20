@@ -56,7 +56,7 @@ export default function RootLayout({
     i18n.changeLanguage(newLocale).then(() => {
       setCurrentLanguage(newLocale); // Update state after changing language
     });
-    window.location.reload();
+    // window.location.reload();
   };
 
   useEffect(() => {

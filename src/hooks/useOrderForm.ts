@@ -43,7 +43,7 @@ export const useOrderForm = () => {
     label: country,
   }));
 
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [cities, setCities] = useState<{ value: string; label: string }[]>([]);
 
   useEffect(() => {
@@ -79,6 +79,7 @@ export const useOrderForm = () => {
     validationRules,
     countries,
     cities,
+    selectedCountry,
     setSelectedCountry,
     sessionsOptions,
   };
