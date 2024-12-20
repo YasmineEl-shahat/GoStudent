@@ -1,75 +1,29 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { useOrderForm } from "@/hooks/useOrderForm";
+import { Controller } from "react-hook-form";
 import PhoneInput from "@/components/inputs/PhoneInput";
 import FormInput from "@/components/inputs/FormInput";
 import PaymentMethod from "@/components/PaymentMethod";
 import OrderOverview from "@/components/OrderOverview";
 import SelectInput from "@/components/inputs/SelectInput";
 
-// eslint-disable-next-line
-const { getCountries, getCities } = require("countries-cities");
-
 const OrderForm: React.FC = () => {
   const { t } = useTranslation();
 
-  const countries = getCountries().map((country: string) => ({
-    value: country,
-    label: country,
-  }));
-
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-  const [cities, setCities] = useState<{ value: string; label: string }[]>([]);
-
-  useEffect(() => {
-    if (selectedCountry) {
-      const citiesList = getCities(selectedCountry);
-      setCities(
-        citiesList.map((city: string) => ({ value: city, label: city }))
-      );
-    } else {
-      setCities([]);
-    }
-  }, [selectedCountry]);
-
-  const sessionsOptions = [
-    { value: "6", label: t("monthlySessions") },
-    { value: "9", label: t("monthlySessions") },
-    { value: "12", label: t("monthlySessions") },
-  ];
-
-  const { control, handleSubmit, setValue, watch } = useForm();
-  const selectedSessions = watch("sessions", 6);
-
-  const phoneRegex = /^[0-9]{10,15}$/;
-  const validationRules = {
-    phone: {
-      required: t("requiredField", { field: t("contactPhoneNumber") }),
-      pattern: {
-        value: phoneRegex,
-        message: t("invalidPhone"),
-      },
-    },
-    email: {
-      required: t("requiredField", { field: t("contactEmail") }),
-      pattern: {
-        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        message: t("invalidEmail"),
-      },
-    },
-    postalCode: {
-      required: t("requiredField", { field: t("postalCodePlaceholder") }),
-      pattern: {
-        value: /^[0-9]{5}$/,
-        message: t("invalidPostalCode"),
-      },
-    },
-  };
-
-  const onSubmit = (data: unknown) => {
-    console.log(data);
-  };
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    selectedSessions,
+    onSubmit,
+    validationRules,
+    countries,
+    cities,
+    setSelectedCountry,
+    sessionsOptions,
+  } = useOrderForm();
 
   return (
     <form
