@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/i18n";
 import Cookie from "js-cookie";
-
 import "./globals.css";
 
 const geistSans = Geist({
@@ -57,6 +56,7 @@ export default function RootLayout({
     i18n.changeLanguage(newLocale).then(() => {
       setCurrentLanguage(newLocale); // Update state after changing language
     });
+    window.location.reload();
   };
 
   useEffect(() => {

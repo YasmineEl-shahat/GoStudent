@@ -43,7 +43,7 @@ const OrderForm: React.FC = () => {
               name="loginPhoneNumber"
               control={control}
               defaultValue=""
-              rules={validationRules.phone}
+              rules={validationRules.loginPhone}
               render={({ field, fieldState }) => (
                 <PhoneInput
                   label={t("loginPhoneNumber")}
@@ -65,7 +65,7 @@ const OrderForm: React.FC = () => {
               name="contactPhoneNumber"
               control={control}
               defaultValue=""
-              rules={validationRules.phone}
+              rules={validationRules.contactPhone}
               render={({ field, fieldState }) => (
                 <PhoneInput
                   label={t("contactPhoneNumber")}
@@ -123,7 +123,7 @@ const OrderForm: React.FC = () => {
             />
 
             <div>
-              <label className="text-xs text-gray-400 mb-1 block">
+              <label className="text-xs text-gray-400 mb-1 block uppercase">
                 {t("billingAddress")}
               </label>
               <section className="flex gap-4">

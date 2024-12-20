@@ -28,7 +28,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   return (
     <div className={className}>
       {label && (
-        <label className="text-xs text-gray-400 mb-1 block">
+        <label className="text-xs text-gray-400 mb-1 block uppercase">
           {label}
           {required && <span>* </span>}
           {hint && (

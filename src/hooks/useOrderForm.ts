@@ -9,8 +9,15 @@ const { getCountries, getCities } = require("countries-cities");
 export const useOrderForm = () => {
   const { t } = useTranslation();
   const validationRules = {
-    phone: {
+    contactPhone: {
       required: t("requiredField", { field: t("contactPhoneNumber") }),
+      pattern: {
+        value: phoneRegex,
+        message: t("invalidPhone"),
+      },
+    },
+    loginPhone: {
+      required: t("requiredField", { field: t("loginPhoneNumber") }),
       pattern: {
         value: phoneRegex,
         message: t("invalidPhone"),
