@@ -20,7 +20,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
   return (
     <section>
       <h2 className="text-xs text-gray-400 mb-1">{t("selectPaymentMethod")}</h2>
-      <div className="p-2 rounded-md border border-gray-100 pr-8">
+      <div className="p-2 rounded-md border border-gray-100 ltr:pr-8 rtl:pl-8">
         <article className="flex flex-col mb-4 gap-3">
           <label className="flex items-center gap-2">
             <input

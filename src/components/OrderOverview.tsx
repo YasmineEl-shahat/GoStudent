@@ -58,7 +58,7 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
           />
           <Label
             htmlFor="pay-in-advance"
-            className="text-sm text-gray-500 ml-0"
+            className="text-sm text-gray-500 !ml-0"
           >
             {t("payInAdvance")}
           </Label>

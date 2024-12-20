@@ -32,14 +32,20 @@ const PhoneInputComponent: React.FC<PhoneInputProps> = ({
           </span>
         )}
       </label>
-      <PhoneInput
-        country={"gr"}
-        value={value}
-        onChange={(value) => onChange(value)}
-        inputClass={`!bg-gray-100 !h-[45px] !w-[100%] rounded !pl-[40px] ${
-          error ? "!border !border-red-500" : "!border-none"
-        }`}
-      />
+      <div
+        style={{
+          direction: "ltr",
+        }}
+      >
+        <PhoneInput
+          country={"gr"}
+          value={value}
+          onChange={(value) => onChange(value)}
+          inputClass={`!bg-gray-100 !h-[45px] !w-[100%] rounded !pl-[40px] ${
+            error ? "!border !border-red-500" : "!border-none"
+          }`}
+        />
+      </div>
       {error && <span className="text-red-500 text-xs">{error}</span>}
     </div>
   );
