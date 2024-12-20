@@ -174,7 +174,9 @@ const OrderForm: React.FC = () => {
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: t("requiredField", { field: t("country") }),
+                  required: t("requiredField", {
+                    field: t("countryPlaceholder"),
+                  }),
                 }}
                 render={({ field, fieldState }) => (
                   <SelectInput
@@ -195,7 +197,7 @@ const OrderForm: React.FC = () => {
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: t("requiredField", { field: t("city") }),
+                  required: t("requiredField", { field: t("cityPlaceholder") }),
                 }}
                 render={({ field, fieldState }) => (
                   <SelectInput

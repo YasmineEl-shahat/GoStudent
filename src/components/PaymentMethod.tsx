@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import { Controller, Control } from "react-hook-form";
 import FormInput from "./inputs/FormInput";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 interface PaymentMethodProps {
   control: Control;
 }
 
 const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
+  const { t } = useTranslation(); // Use the translation hook
   const [selectedMethod, setSelectedMethod] = useState("sepa");
 
   const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +19,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
 
   return (
     <section>
-      <h2 className="text-xs text-gray-400 mb-1">Select Payment Method</h2>
+      <h2 className="text-xs text-gray-400 mb-1">{t("selectPaymentMethod")}</h2>
       <div className="p-2 rounded-md border border-gray-100 pr-8">
         <article className="flex flex-col mb-4 gap-3">
           <label className="flex items-center gap-2">
@@ -30,7 +32,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
             />
             <Image
               src="/assets/images/sepa.webp"
-              alt="SEPA"
+              alt={t("sepa")}
               width={50}
               height={32}
               className="rounded"
@@ -46,7 +48,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
             />
             <Image
               src="/assets/images/Visa.png"
-              alt="Visa"
+              alt={t("visa")}
               width={80}
               height={32}
               className="rounded"
@@ -61,11 +63,13 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
               name="cardHolder"
               control={control}
               defaultValue=""
-              rules={{ required: "Card holder name is required" }}
+              rules={{
+                required: t("requiredField", { field: t("cardHolder") }),
+              }}
               render={({ field, fieldState }) => (
                 <FormInput
                   className="mb-4"
-                  placeholder="Card holder"
+                  placeholder={t("cardHolder")}
                   error={fieldState.error?.message}
                   {...field}
                 />
@@ -76,16 +80,16 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
               control={control}
               defaultValue=""
               rules={{
-                required: "Card number is required",
+                required: t("requiredField", { field: t("cardNumber") }),
                 pattern: {
                   value: /^[0-9]{16}$/,
-                  message: "Card number must be 16 digits",
+                  message: t("invalidCardNumber"),
                 },
               }}
               render={({ field, fieldState }) => (
                 <FormInput
                   className="mb-4"
-                  placeholder="Card number"
+                  placeholder={t("cardNumber")}
                   error={fieldState.error?.message}
                   {...field}
                 />
@@ -97,10 +101,10 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: "Expiry date is required",
+                  required: t("requiredField", { field: t("expiryDate") }),
                   pattern: {
                     value: /^(0[1-9]|1[0-2])\/\d{2}$/,
-                    message: "Invalid expiry date format (MM/YY)",
+                    message: t("invalidExpiryDate"),
                   },
                 }}
                 render={({ field, fieldState }) => (
@@ -117,15 +121,15 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: "CVC is required",
+                  required: t("requiredField", { field: t("cvc") }),
                   pattern: {
                     value: /^[0-9]{3}$/,
-                    message: "CVC must be 3 digits",
+                    message: t("invalidCvc"),
                   },
                 }}
                 render={({ field, fieldState }) => (
                   <FormInput
-                    placeholder="CVC"
+                    placeholder={t("cvc")}
                     className="flex-1"
                     error={fieldState.error?.message}
                     {...field}
@@ -141,11 +145,13 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
               name="iban"
               control={control}
               defaultValue=""
-              rules={{ required: "IBAN is required" }}
+              rules={{
+                required: t("requiredField", { field: t("iban") }),
+              }}
               render={({ field, fieldState }) => (
                 <FormInput
                   className="mb-4"
-                  placeholder="IBAN"
+                  placeholder={t("iban")}
                   error={fieldState.error?.message}
                   {...field}
                 />
@@ -155,10 +161,12 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
               name="bic"
               control={control}
               defaultValue=""
-              rules={{ required: "BIC is required" }}
+              rules={{
+                required: t("requiredField", { field: t("bic") }),
+              }}
               render={({ field, fieldState }) => (
                 <FormInput
-                  placeholder="BIC"
+                  placeholder={t("bic")}
                   error={fieldState.error?.message}
                   {...field}
                 />
@@ -168,9 +176,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
         )}
       </div>
 
-      <p className="text-xs text-gray-400 italic mt-2">
-        100% secure payment. All data is encrypted.
-      </p>
+      <p className="text-xs text-gray-400 italic mt-2">{t("securePayment")}</p>
     </section>
   );
 };

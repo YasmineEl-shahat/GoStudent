@@ -27,5 +27,18 @@
   "termsConditions": "I accept the Terms & Conditions and understand my right of withdrawal as well as the circumstances that lead to a repeal of the same.",
   "orderNow": "Order Now",
   "satisfactionRate": "95% SATISFACTION RATE!",
-  "months": "months"
+  "months": "months",
+  "cardHolder": "Card holder",
+  "cardNumber": "Card number",
+  "expiryDate": "Expiry date",
+  "cvc": "CVC",
+  "iban": "IBAN",
+  "bic": "BIC",
+  "securePayment": "100% secure payment. All data is encrypted.",
+  "invalidCardNumber": "Card number must be 16 digits",
+  "invalidExpiryDate": "Invalid expiry date format (MM/YY)",
+  "invalidCvc": "CVC must be 3 digits",
+  "selectPaymentMethod": "Select Payment Method",
+  "sepa": "SEPA",
+  "visa": "Visa"
 }

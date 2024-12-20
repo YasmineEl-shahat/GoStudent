@@ -27,5 +27,18 @@
   "termsConditions": "أوافق على الشروط والأحكام وأفهم حقي في الانسحاب وكذلك الظروف التي تؤدي إلى إلغائه.",
   "orderNow": "اطلب الآن",
   "satisfactionRate": "معدل الرضا 95%!",
-  "months": "شهور"
+  "months": "شهور",
+  "cardHolder": "اسم صاحب البطاقة",
+  "cardNumber": "رقم البطاقة",
+  "expiryDate": "تاريخ انتهاء الصلاحية",
+  "cvc": "CVC",
+  "iban": "IBAN",
+  "bic": "BIC",
+  "securePayment": "دفع آمن 100%. جميع البيانات مشفرة.",
+  "invalidCardNumber": "رقم البطاقة يجب أن يكون 16 رقمًا",
+  "invalidExpiryDate": "تنسيق تاريخ الانتهاء غير صالح (MM/YY)",
+  "invalidCvc": "CVC يجب أن يتكون من 3 أرقام",
+  "selectPaymentMethod": "اختر طريقة الدفع",
+  "sepa": "SEPA",
+  "visa": "فيزا"
 }
