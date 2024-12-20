@@ -6,13 +6,25 @@ import "react-phone-input-2/lib/style.css";
 interface PhoneInputProps {
   label: string;
   hint?: string;
+  error?: string;
+  required?: boolean;
+  value?: string;
+  onChange: (value: string) => void;
 }
 
-const PhoneInputComponent: React.FC<PhoneInputProps> = ({ label, hint }) => {
+const PhoneInputComponent: React.FC<PhoneInputProps> = ({
+  label,
+  hint,
+  error,
+  required,
+  value,
+  onChange,
+}) => {
   return (
     <div>
       <label className="text-xs text-gray-400 mb-1 block">
-        {label}{" "}
+        {label}
+        {required && <span>* </span>}
         {hint && (
           <span className="text-gray-800">
             (preferably
@@ -22,8 +34,13 @@ const PhoneInputComponent: React.FC<PhoneInputProps> = ({ label, hint }) => {
       </label>
       <PhoneInput
         country={"gr"}
-        inputClass="!bg-gray-100 !h-[45px] !border-none !w-[100%] rounded !pl-[40px]"
+        value={value}
+        onChange={(value) => onChange(value)}
+        inputClass={`!bg-gray-100 !h-[45px] !w-[100%] rounded !pl-[40px] ${
+          error ? "!border !border-red-500" : "!border-none"
+        }`}
       />
+      {error && <span className="text-red-500 text-xs">{error}</span>}
     </div>
   );
 };

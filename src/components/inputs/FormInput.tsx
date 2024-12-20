@@ -5,6 +5,10 @@ interface FormInputProps {
   placeholder?: string;
   hint?: string;
   className?: string;
+  error?: string;
+  required?: boolean;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -12,12 +16,17 @@ const FormInput: React.FC<FormInputProps> = ({
   placeholder,
   hint,
   className,
+  error,
+  required,
+  value,
+  onChange,
 }) => {
   return (
     <div className={className}>
       {label && (
         <label className="text-xs text-gray-400 mb-1 block">
-          {label}{" "}
+          {label}
+          {required && <span>* </span>}
           {hint && (
             <span className="text-gray-800">
               (preferably
@@ -29,10 +38,14 @@ const FormInput: React.FC<FormInputProps> = ({
 
       <input
         type="text"
-        required
         placeholder={placeholder}
-        className="bg-gray-100 h-[45px] outline-none w-full rounded px-4"
+        value={value}
+        onChange={onChange}
+        className={`bg-gray-100 h-[45px] outline-none w-full rounded px-4 ${
+          error ? "border border-red-500" : ""
+        }`}
       />
+      {error && <span className="text-red-500 text-xs">{error}</span>}
     </div>
   );
 };

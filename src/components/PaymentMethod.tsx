@@ -1,9 +1,14 @@
 "use client";
 import React, { useState } from "react";
+import { Controller, Control } from "react-hook-form";
 import FormInput from "./inputs/FormInput";
 import Image from "next/image";
 
-const PaymentMethod: React.FC = () => {
+interface PaymentMethodProps {
+  control: Control;
+}
+
+const PaymentMethod: React.FC<PaymentMethodProps> = ({ control }) => {
   const [selectedMethod, setSelectedMethod] = useState("sepa");
 
   const handleMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,18 +57,113 @@ const PaymentMethod: React.FC = () => {
         {/* Conditionally render input fields based on selected method */}
         {selectedMethod === "visa" && (
           <>
-            <FormInput className="mb-4" placeholder="Card holder" />
-            <FormInput className="mb-4" placeholder="Card number" />
+            <Controller
+              name="cardHolder"
+              control={control}
+              defaultValue=""
+              rules={{ required: "Card holder name is required" }}
+              render={({ field, fieldState }) => (
+                <FormInput
+                  className="mb-4"
+                  placeholder="Card holder"
+                  error={fieldState.error?.message}
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              name="cardNumber"
+              control={control}
+              defaultValue=""
+              rules={{
+                required: "Card number is required",
+                pattern: {
+                  value: /^[0-9]{16}$/,
+                  message: "Card number must be 16 digits",
+                },
+              }}
+              render={({ field, fieldState }) => (
+                <FormInput
+                  className="mb-4"
+                  placeholder="Card number"
+                  error={fieldState.error?.message}
+                  {...field}
+                />
+              )}
+            />
             <div className="flex gap-4">
-              <FormInput placeholder="MM / YY" className="flex-1" />
-              <FormInput placeholder="CVC" className="flex-1" />
+              <Controller
+                name="expiryDate"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Expiry date is required",
+                  pattern: {
+                    value: /^(0[1-9]|1[0-2])\/\d{2}$/,
+                    message: "Invalid expiry date format (MM/YY)",
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <FormInput
+                    placeholder="MM / YY"
+                    className="flex-1"
+                    error={fieldState.error?.message}
+                    {...field}
+                  />
+                )}
+              />
+              <Controller
+                name="cvc"
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "CVC is required",
+                  pattern: {
+                    value: /^[0-9]{3}$/,
+                    message: "CVC must be 3 digits",
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <FormInput
+                    placeholder="CVC"
+                    className="flex-1"
+                    error={fieldState.error?.message}
+                    {...field}
+                  />
+                )}
+              />
             </div>
           </>
         )}
         {selectedMethod === "sepa" && (
           <>
-            <FormInput className="mb-4" placeholder="IBAN" />
-            <FormInput placeholder="BIC" />
+            <Controller
+              name="iban"
+              control={control}
+              defaultValue=""
+              rules={{ required: "IBAN is required" }}
+              render={({ field, fieldState }) => (
+                <FormInput
+                  className="mb-4"
+                  placeholder="IBAN"
+                  error={fieldState.error?.message}
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              name="bic"
+              control={control}
+              defaultValue=""
+              rules={{ required: "BIC is required" }}
+              render={({ field, fieldState }) => (
+                <FormInput
+                  placeholder="BIC"
+                  error={fieldState.error?.message}
+                  {...field}
+                />
+              )}
+            />
           </>
         )}
       </div>

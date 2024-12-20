@@ -7,6 +7,8 @@ interface SelectInputProps {
   placeholder?: string;
   className?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  error?: string;
+  required?: boolean;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({
@@ -16,12 +18,15 @@ const SelectInput: React.FC<SelectInputProps> = ({
   placeholder,
   className,
   onChange,
+  error,
+  required,
 }) => {
   return (
     <div className={className}>
       {label && (
         <label className="text-xs text-gray-400 mb-1 block">
-          {label}{" "}
+          {label}
+          {required && <span>* </span>}
           {hint && (
             <span className="text-gray-800">
               (preferably
@@ -31,8 +36,9 @@ const SelectInput: React.FC<SelectInputProps> = ({
         </label>
       )}
       <select
-        required
-        className="bg-gray-100 h-[45px] outline-none w-full rounded px-4"
+        className={`bg-gray-100 h-[45px] outline-none w-full rounded px-4 ${
+          error ? "border border-red-500" : ""
+        }`}
         defaultValue=""
         onChange={onChange}
       >
@@ -47,6 +53,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
           </option>
         ))}
       </select>
+      {error && <span className="text-red-500 text-xs">{error}</span>}
     </div>
   );
 };
