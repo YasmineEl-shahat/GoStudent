@@ -11,6 +11,7 @@
   "postalCodePlaceholder": "Postal Code",
   "countryPlaceholder": "Country",
   "cityPlaceholder": "City",
+  "sessions": "Sessions",
   "monthlySessions": "Monthly Sessions",
   "requiredField": "{{field}} is required",
   "invalidPhone": "Phone Number Must Be 10-15 Digits",

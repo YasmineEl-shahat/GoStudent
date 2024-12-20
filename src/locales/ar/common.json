@@ -11,6 +11,7 @@
   "postalCodePlaceholder": "الرمز البريدي",
   "countryPlaceholder": "الدولة",
   "cityPlaceholder": "المدينة",
+  "sessions": "جلسات",
   "monthlySessions": "الجلسات الشهرية",
   "requiredField": "{{field}} مطلوب",
   "invalidPhone": "يجب أن يكون رقم الهاتف بين 10 و15 رقماً",

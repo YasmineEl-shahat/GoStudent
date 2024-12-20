@@ -58,9 +58,9 @@ export const useOrderForm = () => {
   }, [selectedCountry]);
 
   const sessionsOptions = [
-    { value: "6", label: t("monthlySessions") },
-    { value: "9", label: t("monthlySessions") },
-    { value: "12", label: t("monthlySessions") },
+    { value: "6", label: "6 " + t("sessions") },
+    { value: "9", label: "9 " + t("sessions") },
+    { value: "12", label: "12 " + t("sessions") },
   ];
 
   const { control, handleSubmit, setValue, watch } = useForm();
