@@ -38,7 +38,10 @@ const OrderForm: React.FC = () => {
     { value: "12", label: "12 Sessions" },
   ];
 
-  const { control, handleSubmit, setValue } = useForm();
+  const { control, handleSubmit, setValue, watch } = useForm();
+  // Watch the selected sessions value
+  const selectedSessions = watch("sessions", 6);
+
   const phoneRegex = /^[0-9]{10,15}$/; // Validates phone numbers with 10-15 digits.
 
   const onSubmit = (data: unknown) => {
@@ -251,7 +254,7 @@ const OrderForm: React.FC = () => {
             <Controller
               name="sessions"
               control={control}
-              defaultValue={6}
+              defaultValue={"6"}
               rules={{ required: "Sessions is required" }}
               render={({ field, fieldState }) => (
                 <SelectInput
@@ -272,7 +275,11 @@ const OrderForm: React.FC = () => {
 
         {/* Right side - Order Overview */}
         <aside className="w-full md:w-80 lg:w-[400px]">
-          <OrderOverview sessions={6} price={28.4} currency="€" />
+          <OrderOverview
+            sessions={parseInt(selectedSessions)}
+            price={28.4}
+            currency="€"
+          />
         </aside>
       </section>
     </form>

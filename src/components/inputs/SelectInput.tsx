@@ -6,6 +6,8 @@ interface SelectInputProps {
   options: { value: string; label: string }[];
   placeholder?: string;
   className?: string;
+  value?: string;
+  name?: string;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   error?: string;
   required?: boolean;
@@ -20,6 +22,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
   onChange,
   error,
   required,
+  value,
+  name,
 }) => {
   return (
     <div className={className}>
@@ -39,7 +43,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
         className={`bg-gray-100 h-[45px] outline-none w-full rounded px-4 ${
           error ? "border border-red-500" : ""
         }`}
-        defaultValue=""
+        value={value ?? ""}
+        name={name}
         onChange={onChange}
       >
         {placeholder && (

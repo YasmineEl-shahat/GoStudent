@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 interface OrderOverviewProps {
   sessions: number;
@@ -16,6 +18,13 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
   const [payInAdvance, setPayInAdvance] = useState(false);
   const [totalSessions, setTotalSessions] = useState(sessions);
   const [totalPrice, setTotalPrice] = useState(price);
+
+  useEffect(() => {
+    setSelectedPlan(sessions);
+    setTotalSessions(sessions);
+    handlePlanSelect(sessions);
+    // eslint-disable-next-line
+  }, [sessions]);
 
   const discount = 9.6;
   const setupFee = 0.0;
@@ -66,17 +75,16 @@ const OrderOverview: React.FC<OrderOverviewProps> = ({
           ))}
         </ul>
 
-        <label className="flex items-center gap-2 my-5">
-          <input
-            type="checkbox"
-            className="mt-1"
+        <div className="flex items-center space-x-2 my-5">
+          <Switch
             checked={payInAdvance}
-            onChange={() => setPayInAdvance(!payInAdvance)}
+            onCheckedChange={setPayInAdvance}
+            id="pay-in-advance"
           />
-          <span className="text-sm text-gray-500">
+          <Label htmlFor="pay-in-advance" className="text-sm text-gray-500">
             Pay in advance - EXTRA 5% DISCOUNT
-          </span>
-        </label>
+          </Label>
+        </div>
 
         <section className="space-y-5 mt-10 text-xs">
           <article className="flex justify-between text-gray-500">
